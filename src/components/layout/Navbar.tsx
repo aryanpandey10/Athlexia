@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/AuthContext";
+import Logo from "@/assets/athelexia-logo.svg";
 
 // Find Services menu data
 const findServicesMenu = [
@@ -79,17 +80,12 @@ export function Navbar() {
       <div className="container">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="14" fill="hsl(var(--primary))" />
-              <path d="M10 20L16 8L22 20" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <circle cx="16" cy="22" r="2" fill="white"/>
-            </svg>
-            <span className="font-heading text-xl font-bold text-primary italic">athlexia</span>
+          <Link to="/" className="flex items-center">
+            <img src={Logo} alt="Athlexia" className="h-8 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-0 lg:flex">
+          <nav className="hidden items-center gap-1 lg:flex">
             {/* Find Services */}
             <div
               className="relative"
@@ -102,23 +98,26 @@ export function Navbar() {
                 }`}
               >
                 FIND SERVICES
-                <ChevronDown className="h-3.5 w-3.5" />
+                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${activeMenu === "services" ? "rotate-180" : ""}`} />
               </button>
 
               {/* Mega Menu */}
               {activeMenu === "services" && (
-                <div className="absolute left-1/2 top-full z-50 w-[800px] -translate-x-1/2 pt-2">
-                  <div className="rounded-xl bg-card border border-border p-6 shadow-xl">
-                    <div className="grid grid-cols-3 gap-6">
-                      {findServicesMenu.map((section) => (
-                        <div key={section.title}>
-                          <h4 className="mb-3 text-sm font-semibold text-foreground">{section.title}</h4>
+                <div className="absolute left-1/2 top-full z-50 w-[900px] -translate-x-1/2 pt-2 animate-fade-in">
+                  <div className="rounded-2xl bg-card border border-border shadow-xl overflow-hidden">
+                    <div className="bg-primary/5 px-6 py-3 border-b border-border">
+                      <h3 className="font-heading text-sm font-semibold text-primary">Find Services Near You</h3>
+                    </div>
+                    <div className="grid grid-cols-3 gap-0 p-4">
+                      {findServicesMenu.map((section, idx) => (
+                        <div key={section.title} className={`px-4 py-3 ${idx < 3 ? "border-b border-border" : ""} ${idx % 3 !== 2 ? "border-r border-border" : ""}`}>
+                          <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-primary">{section.title}</h4>
                           <ul className="space-y-2">
                             {section.items.map((item) => (
                               <li key={item}>
                                 <Link
                                   to={`/products?search=${encodeURIComponent(item)}`}
-                                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                                  className="text-sm text-muted-foreground hover:text-primary transition-colors block py-0.5"
                                 >
                                   {item}
                                 </Link>
@@ -127,6 +126,10 @@ export function Navbar() {
                           </ul>
                         </div>
                       ))}
+                    </div>
+                    <div className="bg-muted/50 px-6 py-3 border-t border-border flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground">Can't find what you're looking for?</span>
+                      <Link to="/contact" className="text-xs font-medium text-primary hover:underline">Contact Us →</Link>
                     </div>
                   </div>
                 </div>
@@ -145,23 +148,26 @@ export function Navbar() {
                 }`}
               >
                 BUY PRODUCTS
-                <ChevronDown className="h-3.5 w-3.5" />
+                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${activeMenu === "products" ? "rotate-180" : ""}`} />
               </button>
 
               {/* Mega Menu */}
               {activeMenu === "products" && (
-                <div className="absolute left-1/2 top-full z-50 w-[600px] -translate-x-1/2 pt-2">
-                  <div className="rounded-xl bg-card border border-border p-6 shadow-xl">
-                    <div className="grid grid-cols-2 gap-6">
-                      {buyProductsMenu.map((section) => (
-                        <div key={section.title}>
-                          <h4 className="mb-3 text-sm font-semibold text-foreground">{section.title}</h4>
+                <div className="absolute left-1/2 top-full z-50 w-[700px] -translate-x-1/2 pt-2 animate-fade-in">
+                  <div className="rounded-2xl bg-card border border-border shadow-xl overflow-hidden">
+                    <div className="bg-primary/5 px-6 py-3 border-b border-border">
+                      <h3 className="font-heading text-sm font-semibold text-primary">Shop Sports & Fitness Products</h3>
+                    </div>
+                    <div className="grid grid-cols-2 gap-0 p-4">
+                      {buyProductsMenu.map((section, idx) => (
+                        <div key={section.title} className={`px-4 py-3 ${idx < 2 ? "border-b border-border" : ""} ${idx % 2 === 0 ? "border-r border-border" : ""}`}>
+                          <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-primary">{section.title}</h4>
                           <ul className="space-y-2">
                             {section.items.map((item) => (
                               <li key={item}>
                                 <Link
                                   to={`/products?search=${encodeURIComponent(item)}`}
-                                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                                  className="text-sm text-muted-foreground hover:text-primary transition-colors block py-0.5"
                                 >
                                   {item}
                                 </Link>
@@ -171,19 +177,42 @@ export function Navbar() {
                         </div>
                       ))}
                     </div>
+                    <div className="bg-muted/50 px-6 py-3 border-t border-border">
+                      <Link to="/products" className="text-xs font-medium text-primary hover:underline">View All Products →</Link>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* List of Business */}
+            {/* About */}
             <Link
-              to="/list-business"
+              to="/about"
               className={`px-4 py-2 text-sm font-medium transition-colors ${
-                isActive("/list-business") ? "text-primary" : "text-foreground hover:text-primary"
+                isActive("/about") ? "text-primary" : "text-foreground hover:text-primary"
               }`}
             >
-              LIST YOUR BUSINESS
+              ABOUT
+            </Link>
+
+            {/* Services */}
+            <Link
+              to="/services"
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
+                isActive("/services") ? "text-primary" : "text-foreground hover:text-primary"
+              }`}
+            >
+              SERVICES
+            </Link>
+
+            {/* List of Business */}
+            <Link
+              to="/contact"
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
+                isActive("/contact") ? "text-primary" : "text-foreground hover:text-primary"
+              }`}
+            >
+              CONTACT
             </Link>
           </nav>
 
@@ -191,7 +220,7 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             {/* Support */}
             <Link
-              to="/support"
+              to="/contact"
               className="hidden items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground lg:flex"
             >
               <HelpCircle className="h-4 w-4" />
@@ -293,20 +322,27 @@ export function Navbar() {
                 ))}
               </div>
             </div>
-            <div className="border-t pt-4">
+            <div className="border-t pt-4 space-y-2">
               <Link
-                to="/list-business"
+                to="/about"
                 className="block rounded-lg p-2 text-sm font-medium hover:bg-muted"
                 onClick={() => setIsMenuOpen(false)}
               >
-                List Your Business
+                About Us
               </Link>
               <Link
-                to="/support"
-                className="block rounded-lg p-2 text-sm hover:bg-muted"
+                to="/services"
+                className="block rounded-lg p-2 text-sm font-medium hover:bg-muted"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Support
+                Our Services
+              </Link>
+              <Link
+                to="/contact"
+                className="block rounded-lg p-2 text-sm font-medium hover:bg-muted"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact Us
               </Link>
             </div>
           </nav>

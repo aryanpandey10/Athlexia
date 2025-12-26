@@ -106,12 +106,12 @@ export function ProfessionalServices() {
   const currentProfessionals = professionals[activeTab as keyof typeof professionals];
 
   return (
-    <section className="bg-background py-12">
+    <section className="bg-background py-10">
       <div className="container">
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Left Side - CTA Card */}
           <div className="lg:w-72">
-            <div className="relative h-full min-h-[350px] overflow-hidden rounded-xl bg-foreground">
+            <div className="relative h-full min-h-[380px] overflow-hidden rounded-xl bg-foreground">
               <img
                 src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=500&fit=crop"
                 alt="Professional Services"
@@ -119,7 +119,7 @@ export function ProfessionalServices() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/70 to-transparent" />
               <div className="relative flex h-full flex-col justify-end p-6 text-background">
-                <h3 className="mb-2 font-heading text-2xl font-bold italic leading-tight">
+                <h3 className="mb-2 font-heading text-2xl font-bold leading-tight">
                   Find Professional Services
                 </h3>
                 <p className="mb-4 text-sm text-background/80">
@@ -137,22 +137,19 @@ export function ProfessionalServices() {
           {/* Right Side - Tabs and Cards */}
           <div className="flex-1">
             {/* Tabs */}
-            <div className="mb-6 flex items-center justify-between">
-              <div className="flex items-center gap-1 border-b border-border">
+            <div className="mb-5 flex items-center justify-between">
+              <div className="flex items-center gap-0 bg-muted rounded-lg p-1">
                 {tabs.map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-2 text-sm font-medium transition-colors relative ${
+                    className={`px-4 py-2 text-xs font-semibold rounded-md transition-all ${
                       activeTab === tab
-                        ? "text-primary"
+                        ? "bg-primary text-primary-foreground shadow-sm"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {tab}
-                    {activeTab === tab && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
-                    )}
                   </button>
                 ))}
               </div>
@@ -171,28 +168,28 @@ export function ProfessionalServices() {
               {currentProfessionals.map((professional, index) => (
                 <div
                   key={index}
-                  className="group overflow-hidden rounded-xl border border-border bg-card p-4 hover:shadow-md transition-shadow"
+                  className="group overflow-hidden rounded-xl border border-border bg-card p-5 hover:shadow-lg transition-all"
                 >
                   <div className="flex flex-col items-center text-center">
-                    <div className="mb-3 h-24 w-24 overflow-hidden rounded-xl">
+                    <div className="mb-3 h-20 w-20 overflow-hidden rounded-xl border-2 border-muted">
                       <img
                         src={professional.image}
                         alt={professional.name}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
-                    <h3 className="font-semibold text-foreground">{professional.name}</h3>
-                    <p className="text-sm text-primary mb-1">{professional.category}</p>
-                    <div className="flex items-center gap-1 text-sm text-muted-foreground mb-1">
+                    <h3 className="font-semibold text-foreground text-sm">{professional.name}</h3>
+                    <p className="text-xs text-primary mb-1 font-medium">{professional.category}</p>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                       <MapPin className="h-3 w-3" />
                       <span>{professional.location}</span>
                     </div>
                     <p className="text-xs text-muted-foreground mb-3">
                       {professional.specialization}
                     </p>
-                    <Button variant="outline" size="sm" className="w-full" asChild>
+                    <Button variant="outline" size="sm" className="w-full text-xs h-8" asChild>
                       <Link to={`/products?search=${encodeURIComponent(professional.name)}`}>
-                        CONNECT
+                        CONTACT
                       </Link>
                     </Button>
                   </div>

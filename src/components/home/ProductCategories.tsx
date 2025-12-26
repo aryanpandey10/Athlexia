@@ -82,28 +82,25 @@ export function ProductCategories() {
   const products = categoryProducts[activeTab as keyof typeof categoryProducts];
 
   return (
-    <section className="bg-muted py-12">
+    <section className="bg-muted py-10">
       <div className="container">
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Left Side - Tabs and Products */}
           <div className="flex-1">
             {/* Tabs */}
-            <div className="mb-6 flex items-center justify-between">
-              <div className="flex items-center gap-1 border-b border-border">
+            <div className="mb-5 flex items-center justify-between">
+              <div className="flex items-center gap-0 bg-background rounded-lg p-1 border border-border">
                 {tabs.map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-2 text-sm font-medium transition-colors relative ${
+                    className={`px-4 py-2 text-xs font-semibold rounded-md transition-all ${
                       activeTab === tab
-                        ? "text-primary"
+                        ? "bg-primary text-primary-foreground shadow-sm"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {tab}
-                    {activeTab === tab && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
-                    )}
                   </button>
                 ))}
               </div>
@@ -122,9 +119,9 @@ export function ProductCategories() {
               {products.map((product, index) => (
                 <div
                   key={index}
-                  className="group overflow-hidden rounded-xl bg-card shadow-sm hover:shadow-md transition-shadow"
+                  className="group overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-all"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -132,11 +129,11 @@ export function ProductCategories() {
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-semibold text-foreground">{product.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">
+                    <h3 className="font-semibold text-foreground text-sm">{product.name}</h3>
+                    <p className="text-xs text-muted-foreground mb-3">
                       {product.description}
                     </p>
-                    <Button variant="outline" size="sm" className="w-full" asChild>
+                    <Button variant="outline" size="sm" className="w-full text-xs h-8" asChild>
                       <Link to={`/products?search=${encodeURIComponent(product.name)}`}>
                         VIEW PRODUCTS
                       </Link>
@@ -148,16 +145,16 @@ export function ProductCategories() {
           </div>
 
           {/* Right Side - Buy Products CTA */}
-          <div className="lg:w-80">
-            <div className="relative h-full min-h-[300px] overflow-hidden rounded-xl bg-gradient-to-br from-foreground to-foreground/90">
+          <div className="lg:w-72">
+            <div className="relative h-full min-h-[320px] overflow-hidden rounded-xl bg-foreground">
               <img
                 src="https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?w=400&h=500&fit=crop"
                 alt="Sports Shop"
                 className="absolute inset-0 h-full w-full object-cover opacity-40"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/70 to-transparent" />
               <div className="relative flex h-full flex-col justify-end p-6 text-background">
-                <h3 className="mb-2 font-heading text-2xl font-bold italic">
+                <h3 className="mb-2 font-heading text-2xl font-bold">
                   Buy Products
                 </h3>
                 <p className="mb-4 text-sm text-background/80">
